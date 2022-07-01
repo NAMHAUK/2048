@@ -42,8 +42,7 @@ class Fragment01 : Fragment() {
             // key 이름에 해당하는 값 얻음
             val number = jsonObject.getString("number")
             val name = jsonObject.getString("name")
-            val photo = jsonObject.getString("photo")
-            phoneArray.add(phone(number, name,photo))
+            phoneArray.add(phone(number, name))
         }
 
         var customListView: ListView? = null

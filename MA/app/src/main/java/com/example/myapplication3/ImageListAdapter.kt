@@ -20,6 +20,7 @@ class ImageListAdapter(val context: FragmentActivity?, val imagelist: ArrayList<
         // 위에서 생성된 view 를 activity_main.xml 파일의 각 View 와 연결하는 과정
         val images = view.findViewById<ImageView>(R.id.imageView)
 
+
         val temp = imagelist[position]
         val resourceId = context?.resources?.getIdentifier(temp.image , "drawable", context.packageName)
         resourceId?.let { images.setImageResource(it) }
