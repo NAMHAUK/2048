@@ -2,11 +2,13 @@ package com.example.myapplication3
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 
@@ -18,12 +20,18 @@ class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<p
         val view: View = LayoutInflater.from(context).inflate(R.layout.test_layout, null)
 
         // 위에서 생성된 view 를 activity_main.xml 파일의 각 View 와 연결하는 과정
-        val numbers = view.findViewById<TextView>(R.id.numberView)
-        val names = view.findViewById<TextView>(R.id.nameView)
+        val names = view.findViewById<Button>(R.id.nameButton)
 
         val temp = phonelist[position]
-        numbers.text = temp.number
         names.text = temp.name
+
+        names.setOnClickListener {
+            Log.d("fe", "qweqweqweewq")
+            val intent = Intent(this.context, detailActivity::class.java)
+            intent.putExtra("number", temp.number)
+            intent.putExtra("name", temp.name)
+            this.context?.startActivity(intent)
+        }
 
         return view
     }
