@@ -1,6 +1,6 @@
-[ {"number":"010-9954-6310","name":"남하욱"},
-  {"number":"010-1234-5678","name":"몰루"},
-  {"number":"010-1111-1111","name":"someone"},
-  {"number":"010-1111-1111","name":"남"},
-  {"number":"010-1111-1111","name":"하"},
-  {"number":"010-1111-1111","name":"욱"}]
+[ {"number":"010-9954-6310","name":"남하욱","photo": "photo1"},
+  {"number":"010-1234-5678","name":"몰루","photo": "photo1"},
+  {"number":"010-1111-1111","name":"someone","photo": "photo1"},
+  {"number":"010-1111-1111","name":"남","photo": "photo1"},
+  {"number":"010-1111-1111","name":"하","photo": "photo1"},
+  {"number":"010-1111-1111","name":"욱","photo": "photo1"}]
