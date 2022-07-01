@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">First_Miracle</string>
-    <string name="tab_1">tab1</string>
-    <string name="tab_2">tab2</string>
-    <string name="tab_3">tab3</string>
-    <string name="Fragment_01">fragment_01</string>
-    <string name="Fragment_02">fragment_02</string>
-    <string name="Fragment_03">fragment_03</string>
-</resources>
