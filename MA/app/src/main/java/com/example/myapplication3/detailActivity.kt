@@ -12,6 +12,7 @@ class detailActivity : AppCompatActivity(){
         setContentView(R.layout.detail_phone)
         name.text= intent.getStringExtra("name")
         number.text= intent.getStringExtra("number")
+        photo.setImageResource(intent.getIntExtra("photo", 0))
         button.setOnClickListener{
             finish()
         }

@@ -26,10 +26,12 @@ class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<p
         names.text = temp.name
 
         names.setOnClickListener {
-            Log.d("fe", "qweqweqweewq")
             val intent = Intent(this.context, detailActivity::class.java)
+            val resourceId = context?.resources?.getIdentifier(temp.photo, "drawable", context.packageName)
+
             intent.putExtra("number", temp.number)
             intent.putExtra("name", temp.name)
+            intent.putExtra("photo",resourceId)
             this.context?.startActivity(intent)
         }
 
