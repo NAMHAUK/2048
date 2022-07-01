@@ -57,9 +57,6 @@ class Fragment02 : Fragment() {
             Image("photo1"),
             Image("photo1"),
 
-
-
-
         )
 
 

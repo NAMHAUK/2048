@@ -32,6 +32,7 @@ class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<p
             intent.putExtra("number", temp.number)
             intent.putExtra("name", temp.name)
             intent.putExtra("photo",resourceId)
+
             this.context?.startActivity(intent)
         }
 
