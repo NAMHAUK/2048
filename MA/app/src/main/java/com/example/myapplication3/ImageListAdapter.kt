@@ -1,35 +1,35 @@
 package com.example.myapplication3
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 
-class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<phone>) : BaseAdapter() {
+
+class ImageListAdapter(val context: FragmentActivity?, val imagelist: ArrayList<Image>) : BaseAdapter() {
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
-        val view: View = LayoutInflater.from(context).inflate(R.layout.test_layout, null)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.imagelist, null)
 
         // 위에서 생성된 view 를 activity_main.xml 파일의 각 View 와 연결하는 과정
-        val numbers = view.findViewById<TextView>(R.id.numberView)
-        val names = view.findViewById<TextView>(R.id.nameView)
+        val images = view.findViewById<ImageView>(R.id.imageView)
 
-        val temp = phonelist[position]
-        numbers.text = temp.number
-        names.text = temp.name
+
+        val temp = imagelist[position]
+        val resourceId = context?.resources?.getIdentifier(temp.image , "drawable", context.packageName)
+        resourceId?.let { images.setImageResource(it) }
 
         return view
     }
 
     override fun getItem(position: Int): Any {
-        return phonelist[position]
+        return imagelist[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -37,6 +37,6 @@ class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<p
     }
 
     override fun getCount(): Int {
-        return phonelist.size
+        return imagelist.size
     }
 }
