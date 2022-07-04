@@ -29,15 +29,18 @@ class GridListAdapter(val context: FragmentActivity?, val gridlist: ArrayList<In
         }
         else{
             grids.text = temp.toString()
-            if (grids.text == "2") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "4") grids.setBackgroundColor(Color.parseColor("#afe3f2"))
-            else if (grids.text == "8") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "16") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "32") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "64") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "128") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "256") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
-            else if (grids.text == "512") grids.setBackgroundColor(Color.parseColor("#afe3ff"))
+            if (grids.text == "2") grids.setBackgroundColor(Color.parseColor("#DEE1D3"))
+            else if (grids.text == "4") grids.setBackgroundColor(Color.parseColor("#5493B9"))
+            else if (grids.text == "8") grids.setBackgroundColor(Color.parseColor("#368ABF"))
+            else if (grids.text == "16") grids.setBackgroundColor(Color.parseColor("#416CA6"))
+            else if (grids.text == "32") grids.setBackgroundColor(Color.parseColor("#829FDB"))
+            else if (grids.text == "64") grids.setBackgroundColor(Color.parseColor("#D98841"))
+            else if (grids.text == "128") grids.setBackgroundColor(Color.parseColor("#F2B950"))
+            else if (grids.text == "256") grids.setBackgroundColor(Color.parseColor("#F2DFA7"))
+            else if (grids.text == "512") grids.setBackgroundColor(Color.parseColor("#7EA656"))
+            else if (grids.text == "1024") grids.setBackgroundColor(Color.parseColor("#285930"))
+            else if (grids.text == "2048") grids.setBackgroundColor(Color.parseColor("#06402F"))
+            else if (grids.text == "4096") grids.setBackgroundColor(Color.parseColor("#01261C"))
         }
 
 
