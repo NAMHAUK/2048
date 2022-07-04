@@ -269,6 +269,7 @@ class Fragment03 : Fragment() {
         if(v==3){
             atomicArray.set(0,atomicArray[3])
             atomicArray.set(3,0)
+            movechk = 1
             return atomicArray
         }
 
@@ -372,10 +373,6 @@ class Fragment03 : Fragment() {
         for (i:Int in 0..15) {
             if (GridArray[i] == 0) temp.add(i)
         }
-//        if (temp.size == 0) return temp
-//        val num = Random().nextInt(temp.size)
-//        val twoOrfour = Random().nextInt(2)
-//        if (twoOrfour == 0) return arrayListOf(temp[num], 2)
         return temp
     }
 
@@ -400,7 +397,9 @@ class Fragment03 : Fragment() {
             var temptemp=doAction(temp)
         }
         if(movechk==0){
-            Toast.makeText(this.context, "Game Over", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this.context, "Game Over", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this.context, gameover::class.java)
+            this.context?.startActivity(intent)
         }
     }
 }

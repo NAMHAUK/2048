@@ -41,6 +41,8 @@ class GridListAdapter(val context: FragmentActivity?, val gridlist: ArrayList<In
             else if (grids.text == "1024") grids.setBackgroundColor(Color.parseColor("#285930"))
             else if (grids.text == "2048") grids.setBackgroundColor(Color.parseColor("#06402F"))
             else if (grids.text == "4096") grids.setBackgroundColor(Color.parseColor("#01261C"))
+            else if (grids.text == "8192") grids.setBackgroundColor(Color.parseColor("#A69586"))
+            else if (grids.text == "16384") grids.setBackgroundColor(Color.parseColor("#D9BDAD"))
         }
 
 
