@@ -19,7 +19,7 @@ class MainListAdapter(val context: FragmentActivity?, val phonelist: ArrayList<p
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
         val view: View = LayoutInflater.from(context).inflate(R.layout.test_layout, null)
 
-        // 위에서 생성된 view 를 activity_main.xml 파일의 각 View 와 연결하는 과정
+        // 위에서 생성된 view 를 fragment_01.xml 파일의 각 View 와 연결하는 과정
         val names = view.findViewById<Button>(R.id.nameButton)
 
         val temp = phonelist[position]

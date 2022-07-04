@@ -4,18 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B00020"
-    tools:context=".Fragment01">
+    android:background="#FFFFFF"
+    tools:context=".Fragment03">
 
-    <TextView
-        android:id="@+id/textView"
+
+    <GridView
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Fragment_03"
         android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:numColumns="4" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="200dp"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:text="Score"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.117" />
+
+    <Button
+        android:id="@+id/left"
+        android:layout_width="56dp"
+        android:layout_height="47dp"
+        android:text="왼"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.295"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.963" />
+
+    <Button
+        android:id="@+id/bottom"
+        android:layout_width="92dp"
+        android:layout_height="47dp"
+        android:text="아래"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.997" />
+
+    <Button
+        android:id="@+id/right"
+        android:layout_width="57dp"
+        android:layout_height="50dp"
+        android:text="오"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.963" />
+
+    <Button
+        android:id="@+id/up"
+        android:layout_width="92dp"
+        android:layout_height="48dp"
+        android:text="위"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.929" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

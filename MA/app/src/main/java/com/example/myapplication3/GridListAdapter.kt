@@ -9,34 +9,34 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import kotlinx.android.synthetic.main.detail_phone.view.*
 
 
-class ImageListAdapter(val context: FragmentActivity?, val imagelist: ArrayList<Image>) : BaseAdapter() {
+class GridListAdapter(val context: FragmentActivity?, val gridlist: ArrayList<Int>) : BaseAdapter() {
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
         /* LayoutInflater는 item을 Adapter에서 사용할 View로 부풀려주는(inflate) 역할을 한다. */
-        val view: View = LayoutInflater.from(context).inflate(R.layout.imagelist, null)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.main_grid_2048, null)
 
         // 위에서 생성된 view 를 fragment_02.xml 파일의 각 View 와 연결하는 과정
-        val images = view.findViewById<ImageView>(R.id.imageView)
+        val grids = view.findViewById<TextView>(R.id.eachGrid)
 
-        val temp = imagelist[position]
-        val resourceId = context?.resources?.getIdentifier(temp.image , "drawable", context.packageName)
-        resourceId?.let { images.setImageResource(it) }
-
-        images.setOnClickListener{
-            val intent = Intent(this.context, ImageZoom::class.java)
-            val iresourceId = context?.resources?.getIdentifier("photo1", "drawable", context.packageName)
-            intent.putExtra("zoomImage",iresourceId)
-            this.context?.startActivity(intent)
+        val temp = gridlist[position]
+        if(temp==0){
+            grids.text = ""
         }
+        else{
+            grids.text = temp.toString()
+        }
+
+
 
         return view
     }
 
     override fun getItem(position: Int): Any {
-        return imagelist[position]
+        return gridlist[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -44,6 +44,6 @@ class ImageListAdapter(val context: FragmentActivity?, val imagelist: ArrayList<
     }
 
     override fun getCount(): Int {
-        return imagelist.size
+        return gridlist.size
     }
 }
