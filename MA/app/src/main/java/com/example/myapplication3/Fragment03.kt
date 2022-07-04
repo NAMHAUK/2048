@@ -30,19 +30,6 @@ class Fragment03 : Fragment() {
             GridArray.add(0)
         }
 
-        //setOf(GridArray[4].number,4)
-        GridArray.set(0,1)
-        GridArray.set(1,2)
-        GridArray.set(2,2)
-        GridArray.set(3,2)
-
-        var tempArray = arrayListOf<Int>(
-            GridArray[0],GridArray[1],GridArray[2],GridArray[3]
-        )
-        tempArray= doAction(tempArray)
-        for(i:Int in 0..3){
-            GridArray[i]=tempArray[i]
-        }
 
         val scorev = rootView?.findViewById<TextView>(R.id.score)
         if (scorev != null) {
@@ -52,14 +39,15 @@ class Fragment03 : Fragment() {
 
         val up = rootView.findViewById<Button>(R.id.up)
         up.setOnClickListener {
+            Log.d("AfterGridArray",GridArray.toString())
             for (i in 0 until 4) {
                 var temp = makeArray(GridArray, 0, i)
                 var temptemp=doAction(temp)
                 for(j in 0 until 4){
                     GridArray[i+4*j]=temptemp[j]
                 }
-
             }
+            Log.d("GridArray",GridArray.toString())
             // add 2 or 4 in blank
             var index = newValue(GridArray)
             if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
@@ -75,6 +63,7 @@ class Fragment03 : Fragment() {
         }
         val bottom = rootView.findViewById<Button>(R.id.bottom)
         bottom.setOnClickListener {
+            Log.d("AfterGridArray",GridArray.toString())
             for (i in 0 until 4) {
                 var temp = makeArray(GridArray, 1, i)
                 var temptemp=doAction(temp)
@@ -82,6 +71,7 @@ class Fragment03 : Fragment() {
                     GridArray[i+4*j]=temptemp[3-j]
                 }
             }
+            Log.d("GridArray",GridArray.toString())
             // add 2 or 4 in blank
             var index = newValue(GridArray)
             if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
@@ -97,6 +87,7 @@ class Fragment03 : Fragment() {
         }
         val left = rootView.findViewById<Button>(R.id.left)
         left.setOnClickListener {
+            Log.d("AfterGridArray",GridArray.toString())
             for (i in 0 until 4) {
                 var temp = makeArray(GridArray, 2, i)
                 var temptemp=doAction(temp)
@@ -104,6 +95,8 @@ class Fragment03 : Fragment() {
                     GridArray[j+4*i]=temptemp[j]
                 }
             }
+            Log.d("GridArray",GridArray.toString())
+
             // add 2 or 4 in blank
             var index = newValue(GridArray)
             if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
@@ -119,6 +112,7 @@ class Fragment03 : Fragment() {
         }
         val right = rootView.findViewById<Button>(R.id.right)
         right.setOnClickListener {
+            Log.d("AfterGridArray",GridArray.toString())
             for (i in 0 until 4) {
                 var temp = makeArray(GridArray, 3, i)
                 var temptemp=doAction(temp)
@@ -126,6 +120,7 @@ class Fragment03 : Fragment() {
                     GridArray[j+4*i]=temptemp[3-j]
                 }
             }
+            Log.d("GridArray",GridArray.toString())
             // add 2 or 4 in blank
             var index = newValue(GridArray)
             if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
@@ -176,12 +171,23 @@ class Fragment03 : Fragment() {
             Log.d("v",v.toString())
             Log.d("c",c.toString())
             Log.d("forA",atomicArray.toString())
-            Log.d("score",score.toString())
             // 현재 보는 칸이 비어 있음
-            if(atomicArray[i]==0){continue}
+            if(atomicArray[i]==0){
+                // 0400 같이 빈칸만 계속 존재할 경우
+                if(v!=0&&i==3&&v!=c){
+                    atomicArray.set(c,atomicArray[v])
+                    atomicArray.set(v,0)
+                }
+
+                // 만약 비어있는 애가 v를 가지면 다음으로 v를 넘김 (앞에서 합쳐졌는데 다음이 0이라 생김)
+                if(v==i){
+                    v+=1
+                }
+                continue
+            }
 
 
-            // 같은데 index 가 다 마지막이면 그 값 변경해주고, 아니면 continue
+            // 같은데 v,i index 가 다 마지막이면 그 값 변경해주고, 아니면 그냥 continue
             if(v==i){
                 if(i==3){
                     atomicArray.set(c,atomicArray[3])
@@ -205,6 +211,9 @@ class Fragment03 : Fragment() {
             // 다르므로 앞에 것은 c index
             else if(atomicArray[v]!=atomicArray[i]){
                 atomicArray.set(c,atomicArray[v])
+                if(c!=v){
+                    atomicArray.set(v,0)
+                }
                 c += 1
                 v = i
                 Log.d("atomicA",atomicArray.toString())
