@@ -24,7 +24,7 @@ import kotlin.collections.ArrayList
 class Fragment03 : Fragment() {
     var GridArray: ArrayList<Int> = arrayListOf<Int>()
     var score:Int = 0
-
+    var movechk:Int = 0
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView: View =inflater.inflate(R.layout.fragment_03, container, false)
@@ -62,6 +62,7 @@ class Fragment03 : Fragment() {
             customListView!!.adapter = GridAdapter
         }
 
+
         val up = rootView.findViewById<Button>(R.id.up)
         up.setOnClickListener {
             Log.d("AfterGridArray",GridArray.toString())
@@ -75,21 +76,35 @@ class Fragment03 : Fragment() {
                 if (scorev != null) {
                     scorev.text = score.toString()
                 }
-
             }
             Log.d("GridArray",GridArray.toString())
-            // add 2 or 4 in blank
-            var index = newValue(GridArray)
-            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
-            else {
-                val num = index[0]
-                GridArray.set(num, index[1])
-                // gridView에 추가
-                var customListView: GridView? = null
-                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-                val GridAdapter = GridListAdapter(this.activity, GridArray)
-                customListView!!.adapter = GridAdapter
+
+
+            if(movechk==0){
+                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
             }
+            else{
+                movechk=0
+                // add 2 or 4 in blank
+                var index = newValue(GridArray)
+
+                if (index.size != 0) {
+                    val num = Random().nextInt(index.size)
+                    val twoOrfour = Random().nextInt(2)
+                    if (twoOrfour == 0) GridArray.set(index[num], 2)
+                    else GridArray.set(index[num], 4)
+
+                    if(index.size==1){
+                        gameOverChk()
+                    }
+                }
+
+            }
+            // gridView에 추가
+            var customListView: GridView? = null
+            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+            val GridAdapter = GridListAdapter(this.activity, GridArray)
+            customListView!!.adapter = GridAdapter
         }
         val bottom = rootView.findViewById<Button>(R.id.bottom)
         bottom.setOnClickListener {
@@ -108,18 +123,31 @@ class Fragment03 : Fragment() {
                 }
             }
             Log.d("GridArray",GridArray.toString())
-            // add 2 or 4 in blank
-            var index = newValue(GridArray)
-            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
-            else {
-                val num = index[0]
-                GridArray.set(num, index[1])
-                // gridView에 추가
-                var customListView: GridView? = null
-                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-                val GridAdapter = GridListAdapter(this.activity, GridArray)
-                customListView!!.adapter = GridAdapter
+
+            if(movechk==0){
+                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
             }
+            else{
+                movechk=0
+                // add 2 or 4 in blank
+                var index = newValue(GridArray)
+
+                if (index.size != 0) {
+                    val num = Random().nextInt(index.size)
+                    val twoOrfour = Random().nextInt(2)
+                    if (twoOrfour == 0) GridArray.set(index[num], 2)
+                    else GridArray.set(index[num], 4)
+
+                    if(index.size==1){
+                        gameOverChk()
+                    }
+                }
+            }
+            // gridView에 추가
+            var customListView: GridView? = null
+            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+            val GridAdapter = GridListAdapter(this.activity, GridArray)
+            customListView!!.adapter = GridAdapter
         }
         val left = rootView.findViewById<Button>(R.id.left)
         left.setOnClickListener {
@@ -136,19 +164,30 @@ class Fragment03 : Fragment() {
                 }
             }
             Log.d("GridArray",GridArray.toString())
-
-            // add 2 or 4 in blank
-            var index = newValue(GridArray)
-            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
-            else {
-                val num = index[0]
-                GridArray.set(num, index[1])
-                // gridView에 추가
-                var customListView: GridView? = null
-                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-                val GridAdapter = GridListAdapter(this.activity, GridArray)
-                customListView!!.adapter = GridAdapter
+            if(movechk==0){
+                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
             }
+            else{
+                movechk=0
+                // add 2 or 4 in blank
+                var index = newValue(GridArray)
+
+                if (index.size != 0) {
+                    val num = Random().nextInt(index.size)
+                    val twoOrfour = Random().nextInt(2)
+                    if (twoOrfour == 0) GridArray.set(index[num], 2)
+                    else GridArray.set(index[num], 4)
+
+                    if(index.size==1){
+                        gameOverChk()
+                    }
+                }
+            }
+            // gridView에 추가
+            var customListView: GridView? = null
+            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+            val GridAdapter = GridListAdapter(this.activity, GridArray)
+            customListView!!.adapter = GridAdapter
         }
         val right = rootView.findViewById<Button>(R.id.right)
         right.setOnClickListener {
@@ -165,18 +204,30 @@ class Fragment03 : Fragment() {
                 }
             }
             Log.d("GridArray",GridArray.toString())
-            // add 2 or 4 in blank
-            var index = newValue(GridArray)
-            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
-            else {
-                val num = index[0]
-                GridArray.set(num, index[1])
-                // gridView에 추가
-                var customListView: GridView? = null
-                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-                val GridAdapter = GridListAdapter(this.activity, GridArray)
-                customListView!!.adapter = GridAdapter
+            if(movechk==0){
+                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
             }
+            else{
+                movechk=0
+                // add 2 or 4 in blank
+                var index = newValue(GridArray)
+
+                if (index.size != 0) {
+                    val num = Random().nextInt(index.size)
+                    val twoOrfour = Random().nextInt(2)
+                    if (twoOrfour == 0) GridArray.set(index[num], 2)
+                    else GridArray.set(index[num], 4)
+
+                    if(index.size==1){
+                        gameOverChk()
+                    }
+                }
+            }
+            // gridView에 추가
+            var customListView: GridView? = null
+            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+            val GridAdapter = GridListAdapter(this.activity, GridArray)
+            customListView!!.adapter = GridAdapter
         }
 
         var customListView: GridView? = null
@@ -215,12 +266,15 @@ class Fragment03 : Fragment() {
             Log.d("v",v.toString())
             Log.d("c",c.toString())
             Log.d("forA",atomicArray.toString())
+
+
             // 현재 보는 칸이 비어 있음
             if(atomicArray[i]==0){
                 // 0400 같이 빈칸만 계속 존재할 경우
                 if(v!=0&&i==3&&v!=c){
                     atomicArray.set(c,atomicArray[v])
                     atomicArray.set(v,0)
+                    movechk=1
                 }
 
                 // 만약 비어있는 애가 v를 가지면 다음으로 v를 넘김 (앞에서 합쳐졌는데 다음이 0이라 생김)
@@ -231,11 +285,14 @@ class Fragment03 : Fragment() {
             }
 
 
-            // 같은데 v,i index 가 다 마지막이면 그 값 변경해주고, 아니면 그냥 continue
+            // v,i index 가 같은데  다 마지막이면 그 값 변경해주고, 아니면 그냥 continue
             if(v==i){
                 if(i==3){
                     atomicArray.set(c,atomicArray[3])
-                    if(c!=3){atomicArray.set(3,0)}
+                    if(c!=3){
+                        atomicArray.set(3,0)
+                        movechk=1
+                    }
                 }
                 Log.d("atomicA",atomicArray.toString())
                 continue
@@ -249,6 +306,7 @@ class Fragment03 : Fragment() {
                 if(c!=v){atomicArray.set(v,0)}
                 v = i+1
                 c += 1
+                movechk=1
                 Log.d("atomicA",atomicArray.toString())
             }
 
@@ -266,7 +324,10 @@ class Fragment03 : Fragment() {
             // i=3 인 개체는 합쳐질리 없으므로 그대로 값 이동.
             if(i==3){
                 atomicArray.set(c,atomicArray[3])
-                if(c!=3){atomicArray.set(3,0)}
+                if(c!=3){
+                    atomicArray.set(3,0)
+                    movechk=1
+                }
                 Log.d("atomicA",atomicArray.toString())
             }
 
@@ -300,20 +361,35 @@ class Fragment03 : Fragment() {
         for (i:Int in 0..15) {
             if (GridArray[i] == 0) temp.add(i)
         }
-        if (temp.size == 0) return temp
-        val num = Random().nextInt(temp.size)
-        val twoOrfour = Random().nextInt(2)
-        if (twoOrfour == 0) return arrayListOf(temp[num], 2)
-        else return arrayListOf(temp[num], 4)
+//        if (temp.size == 0) return temp
+//        val num = Random().nextInt(temp.size)
+//        val twoOrfour = Random().nextInt(2)
+//        if (twoOrfour == 0) return arrayListOf(temp[num], 2)
+        return temp
     }
 
     // init
     @RequiresApi(Build.VERSION_CODES.N)
     fun init() {
+        movechk=0
         val init = Random().nextInt(16)
         var twoOrfour = Random().nextInt(2)
         GridArray[init] = 2
         if (twoOrfour == 0) GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 2
         else GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 4
+    }
+
+    fun gameOverChk(){
+        for (i in 0 until 4) {
+            var temp = makeArray(GridArray, 2, i)
+            var temptemp=doAction(temp)
+        }
+        for (i in 0 until 4) {
+            var temp = makeArray(GridArray, 0, i)
+            var temptemp=doAction(temp)
+        }
+        if(movechk==0){
+            Toast.makeText(this.context, "Game Over", Toast.LENGTH_SHORT).show()
+        }
     }
 }
