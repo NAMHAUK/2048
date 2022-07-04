@@ -269,6 +269,7 @@ class Fragment03 : Fragment() {
         if(v==3){
             atomicArray.set(0,atomicArray[3])
             atomicArray.set(3,0)
+            movechk=1
             return atomicArray
         }
 
