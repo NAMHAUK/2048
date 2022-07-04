@@ -25,6 +25,8 @@ class Fragment03 : Fragment() {
     var GridArray: ArrayList<Int> = arrayListOf<Int>()
     var score:Int = 0
     var movechk:Int = 0
+    var bestscore:Int = 0
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView: View =inflater.inflate(R.layout.fragment_03, container, false)
@@ -40,6 +42,10 @@ class Fragment03 : Fragment() {
         if (scorev != null) {
             scorev.text = score.toString()
         }
+        val bestscorev = rootView?.findViewById<TextView>(R.id.bestscore)
+        if (bestscorev != null) {
+            bestscorev.text = bestscore.toString()
+        }
 
         // 초기상태
         init()
@@ -51,15 +57,20 @@ class Fragment03 : Fragment() {
                 GridArray[i] = 0
             }
             init()
-            // score 초기화
-            score = 0
-            val scorev = rootView?.findViewById<TextView>(R.id.score)
-            scorev!!.text = score.toString()
             // gridView에 추가
             var customListView: GridView? = null
             customListView = rootView.findViewById<View>(android.R.id.list) as GridView
             val GridAdapter = GridListAdapter(this.activity, GridArray)
             customListView!!.adapter = GridAdapter
+
+            // reset 버튼을 누루면 bestscore 업데이트 (초기: 0)
+            if (bestscore < score) bestscore= score
+            val bestscorev = rootView?.findViewById<TextView>(R.id.bestscore)
+            bestscorev!!.text = bestscore.toString()
+            // score 초기화
+            score = 0
+            val scorev = rootView?.findViewById<TextView>(R.id.score)
+            scorev!!.text = score.toString()
         }
 
 
