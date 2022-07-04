@@ -2,6 +2,7 @@ package com.example.myapplication3
 
 import android.content.Intent
 import android.net.wifi.p2p.WifiP2pManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,7 +13,10 @@ import android.widget.Button
 import android.widget.GridView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import java.lang.Integer.max
+import java.lang.Integer.min
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,6 +25,7 @@ class Fragment03 : Fragment() {
     var GridArray: ArrayList<Int> = arrayListOf<Int>()
     var score:Int = 0
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView: View =inflater.inflate(R.layout.fragment_03, container, false)
         // 4*4 Grid 에 각 값 초기화 (초기 number 값은 0)
@@ -36,6 +41,26 @@ class Fragment03 : Fragment() {
             scorev.text = score.toString()
         }
 
+        // 초기상태
+        init()
+
+        // reset
+        val reset = rootView.findViewById<Button>(R.id.reset)
+        reset.setOnClickListener {
+            for (i in 0 until 16) {
+                GridArray[i] = 0
+            }
+            init()
+            // score 초기화
+            score = 0
+            val scorev = rootView?.findViewById<TextView>(R.id.score)
+            scorev!!.text = score.toString()
+            // gridView에 추가
+            var customListView: GridView? = null
+            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+            val GridAdapter = GridListAdapter(this.activity, GridArray)
+            customListView!!.adapter = GridAdapter
+        }
 
         val up = rootView.findViewById<Button>(R.id.up)
         up.setOnClickListener {
@@ -46,6 +71,11 @@ class Fragment03 : Fragment() {
                 for(j in 0 until 4){
                     GridArray[i+4*j]=temptemp[j]
                 }
+                val scorev = rootView?.findViewById<TextView>(R.id.score)
+                if (scorev != null) {
+                    scorev.text = score.toString()
+                }
+
             }
             Log.d("GridArray",GridArray.toString())
             // add 2 or 4 in blank
@@ -66,9 +96,15 @@ class Fragment03 : Fragment() {
             Log.d("AfterGridArray",GridArray.toString())
             for (i in 0 until 4) {
                 var temp = makeArray(GridArray, 1, i)
+                //Log.d("log",temp.toString())
                 var temptemp=doAction(temp)
                 for(j in 0 until 4){
                     GridArray[i+4*j]=temptemp[3-j]
+                }
+                //Log.d("log",temptemp.toString())
+                val scorev = rootView?.findViewById<TextView>(R.id.score)
+                if (scorev != null) {
+                    scorev.text = score.toString()
                 }
             }
             Log.d("GridArray",GridArray.toString())
@@ -94,6 +130,10 @@ class Fragment03 : Fragment() {
                 for(j in 0 until 4){
                     GridArray[j+4*i]=temptemp[j]
                 }
+                val scorev = rootView?.findViewById<TextView>(R.id.score)
+                if (scorev != null) {
+                    scorev.text = score.toString()
+                }
             }
             Log.d("GridArray",GridArray.toString())
 
@@ -118,6 +158,10 @@ class Fragment03 : Fragment() {
                 var temptemp=doAction(temp)
                 for(j in 0 until 4){
                     GridArray[j+4*i]=temptemp[3-j]
+                }
+                val scorev = rootView?.findViewById<TextView>(R.id.score)
+                if (scorev != null) {
+                    scorev.text = score.toString()
                 }
             }
             Log.d("GridArray",GridArray.toString())
@@ -261,5 +305,15 @@ class Fragment03 : Fragment() {
         val twoOrfour = Random().nextInt(2)
         if (twoOrfour == 0) return arrayListOf(temp[num], 2)
         else return arrayListOf(temp[num], 4)
+    }
+
+    // init
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun init() {
+        val init = Random().nextInt(16)
+        var twoOrfour = Random().nextInt(2)
+        GridArray[init] = 2
+        if (twoOrfour == 0) GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 2
+        else GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 4
     }
 }
