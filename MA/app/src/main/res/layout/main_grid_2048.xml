@@ -4,15 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--        android:background="@drawable/ic_launcher_background"-->
     <TextView
         android:id="@+id/eachGrid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:width="108dp"
+        android:height="108dp"
         android:layout_margin="2dp"
         android:text="Grid"
         android:gravity="center"
         android:textSize="34sp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="#808080"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
