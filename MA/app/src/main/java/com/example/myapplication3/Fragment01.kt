@@ -1,13 +1,23 @@
 package com.example.myapplication3
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import org.json.JSONArray
+import org.json.JSONObject
 import java.io.InputStream
 
 
@@ -32,9 +42,9 @@ class Fragment01 : Fragment() {
             e.printStackTrace()
         }
         // Json 파일 열어서 String 으로 얻음
-        val jsonString = text
+        var jsonString = text
         // jsonArray 로 파싱
-        val jsonArray = JSONArray(jsonString)
+        var jsonArray = JSONArray(jsonString)
 
         // jsonArray 순회 : 인덱스별 JsonObject 취득후, key 에 해당하는 value 확인
         for (index in 0 until jsonArray.length()) {
@@ -42,9 +52,8 @@ class Fragment01 : Fragment() {
             // key 이름에 해당하는 값 얻음
             val number = jsonObject.getString("number")
             val name = jsonObject.getString("name")
-
             val photo = jsonObject.getString("photo")
-            phoneArray.add(phone(number, name,photo))
+            phoneArray.add(phone(number, name, photo))
         }
 
         phoneArray.sortBy { it.name }
@@ -52,8 +61,27 @@ class Fragment01 : Fragment() {
         var customListView: ListView? = null
         // xml의 listview id를 반드시 "@android:id/list"로 해줘야 한다.
         customListView = rootView.findViewById<View>(android.R.id.list) as ListView
-        val phoneAdapter = MainListAdapter(this.activity, phoneArray)
+        var phoneAdapter = MainListAdapter(this.activity, phoneArray)
         customListView.adapter = phoneAdapter
+
+        // plus button 눌렀을 때 이름/번호 작성 activity
+        val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Handle the Intent
+                val ename = result.data?.getStringExtra("name").toString()
+                val enumber = result.data?.getStringExtra("number").toString()
+                //Toast.makeText(this.context, ename, Toast.LENGTH_SHORT).show()
+                phoneArray.add(phone(enumber, ename, "mario"))
+                phoneArray.sortBy { it.name }
+            }
+        }
+        val add = rootView.findViewById<Button>(R.id.add)
+        add.setOnClickListener {
+            val intent = Intent(this.context, addPhone::class.java)
+            startForResult.launch(intent)
+        }
+
         return rootView
     }
     companion object {
