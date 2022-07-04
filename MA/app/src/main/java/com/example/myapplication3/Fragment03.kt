@@ -1,6 +1,7 @@
 package com.example.myapplication3
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.wifi.p2p.WifiP2pManager
 import android.os.Build
 import android.os.Bundle
@@ -53,6 +54,8 @@ class Fragment03 : Fragment() {
         // reset
         val reset = rootView.findViewById<Button>(R.id.reset)
         reset.setOnClickListener {
+            reset.setBackgroundColor(Color.parseColor("#FFFFFF"))
+            reset.setTextColor(Color.parseColor("#000000"))
             for (i in 0 until 16) {
                 GridArray[i] = 0
             }
@@ -106,7 +109,7 @@ class Fragment03 : Fragment() {
                     else GridArray.set(index[num], 4)
 
                     if(index.size==1){
-                        gameOverChk()
+                        gameOverChk(rootView)
                     }
                 }
 
@@ -150,7 +153,7 @@ class Fragment03 : Fragment() {
                     else GridArray.set(index[num], 4)
 
                     if(index.size==1){
-                        gameOverChk()
+                        gameOverChk(rootView)
                     }
                 }
             }
@@ -190,7 +193,7 @@ class Fragment03 : Fragment() {
                     else GridArray.set(index[num], 4)
 
                     if(index.size==1){
-                        gameOverChk()
+                        gameOverChk(rootView)
                     }
                 }
             }
@@ -230,7 +233,7 @@ class Fragment03 : Fragment() {
                     else GridArray.set(index[num], 4)
 
                     if(index.size==1){
-                        gameOverChk()
+                        gameOverChk(rootView)
                     }
                 }
             }
@@ -373,10 +376,6 @@ class Fragment03 : Fragment() {
         for (i:Int in 0..15) {
             if (GridArray[i] == 0) temp.add(i)
         }
-//        if (temp.size == 0) return temp
-//        val num = Random().nextInt(temp.size)
-//        val twoOrfour = Random().nextInt(2)
-//        if (twoOrfour == 0) return arrayListOf(temp[num], 2)
         return temp
     }
 
@@ -384,14 +383,14 @@ class Fragment03 : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     fun init() {
         movechk=0
-        val init = Random().nextInt(16)
+        val init = Random().nextInt(15)
         var twoOrfour = Random().nextInt(2)
         GridArray[init] = 2
         if (twoOrfour == 0) GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 2
         else GridArray[min(15, init + (Random().nextInt(4)) + 1)] = 4
     }
 
-    fun gameOverChk(){
+    fun gameOverChk(rootView: View){
         for (i in 0 until 4) {
             var temp = makeArray(GridArray, 2, i)
             var temptemp=doAction(temp)
@@ -401,7 +400,12 @@ class Fragment03 : Fragment() {
             var temptemp=doAction(temp)
         }
         if(movechk==0){
-            Toast.makeText(this.context, "Game Over", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this.context, "Game Over", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this.context, gameover::class.java)
+            this.context?.startActivity(intent)
+            val reset = rootView.findViewById<Button>(R.id.reset)
+            reset.setBackgroundColor(Color.parseColor("#FF018786"))
+            reset.setTextColor(Color.parseColor("#FFFFFF"))
         }
     }
 }

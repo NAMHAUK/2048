@@ -27,7 +27,7 @@ class ImageListAdapter(val context: FragmentActivity?, val imagelist: ArrayList<
 
         images.setOnClickListener{
             val intent = Intent(this.context, ImageZoom::class.java)
-            val iresourceId = context?.resources?.getIdentifier("photo1", "drawable", context.packageName)
+            val iresourceId = context?.resources?.getIdentifier(temp.image, "drawable", context.packageName)
             intent.putExtra("zoomImage",iresourceId)
             this.context?.startActivity(intent)
         }
