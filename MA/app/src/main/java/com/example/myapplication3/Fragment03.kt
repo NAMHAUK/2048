@@ -1,5 +1,7 @@
 package com.example.myapplication3
 
+import android.content.Intent
+import android.net.wifi.p2p.WifiP2pManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +13,8 @@ import android.widget.GridView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Fragment03 : Fragment() {
@@ -26,9 +30,8 @@ class Fragment03 : Fragment() {
             GridArray.add(0)
         }
 
-
         //setOf(GridArray[4].number,4)
-        GridArray.set(0,2)
+        GridArray.set(0,1)
         GridArray.set(1,2)
         GridArray.set(2,2)
         GridArray.set(3,2)
@@ -36,41 +39,115 @@ class Fragment03 : Fragment() {
         var tempArray = arrayListOf<Int>(
             GridArray[0],GridArray[1],GridArray[2],GridArray[3]
         )
-        doAction(tempArray)
+        tempArray= doAction(tempArray)
         for(i:Int in 0..3){
             GridArray[i]=tempArray[i]
         }
 
+        val scorev = rootView?.findViewById<TextView>(R.id.score)
+        if (scorev != null) {
+            scorev.text = score.toString()
+        }
+
+
         val up = rootView.findViewById<Button>(R.id.up)
         up.setOnClickListener {
-            //val intent = Intent(this.context, addPhone::class.java)
-            Toast.makeText(this.context, "dkjfkls", Toast.LENGTH_SHORT).show()
+            for (i in 0 until 4) {
+                var temp = makeArray(GridArray, 0, i)
+                var temptemp=doAction(temp)
+                for(j in 0 until 4){
+                    GridArray[i+4*j]=temptemp[j]
+                }
+
+            }
+            // add 2 or 4 in blank
+            var index = newValue(GridArray)
+            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
+            else {
+                val num = index[0]
+                GridArray.set(num, index[1])
+                // gridView에 추가
+                var customListView: GridView? = null
+                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+                val GridAdapter = GridListAdapter(this.activity, GridArray)
+                customListView!!.adapter = GridAdapter
+            }
         }
         val bottom = rootView.findViewById<Button>(R.id.bottom)
         bottom.setOnClickListener {
-            //val intent = Intent(this.context, addPhone::class.java)
+            for (i in 0 until 4) {
+                var temp = makeArray(GridArray, 1, i)
+                var temptemp=doAction(temp)
+                for(j in 0 until 4){
+                    GridArray[i+4*j]=temptemp[3-j]
+                }
+            }
+            // add 2 or 4 in blank
+            var index = newValue(GridArray)
+            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
+            else {
+                val num = index[0]
+                GridArray.set(num, index[1])
+                // gridView에 추가
+                var customListView: GridView? = null
+                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+                val GridAdapter = GridListAdapter(this.activity, GridArray)
+                customListView!!.adapter = GridAdapter
+            }
         }
         val left = rootView.findViewById<Button>(R.id.left)
         left.setOnClickListener {
-            //val intent = Intent(this.context, addPhone::class.java)
+            for (i in 0 until 4) {
+                var temp = makeArray(GridArray, 2, i)
+                var temptemp=doAction(temp)
+                for(j in 0 until 4){
+                    GridArray[j+4*i]=temptemp[j]
+                }
+            }
+            // add 2 or 4 in blank
+            var index = newValue(GridArray)
+            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
+            else {
+                val num = index[0]
+                GridArray.set(num, index[1])
+                // gridView에 추가
+                var customListView: GridView? = null
+                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+                val GridAdapter = GridListAdapter(this.activity, GridArray)
+                customListView!!.adapter = GridAdapter
+            }
         }
         val right = rootView.findViewById<Button>(R.id.right)
         right.setOnClickListener {
-            //val intent = Intent(this.context, addPhone::class.java)
-        }
-
-        val scorev = rootView?.findViewById<TextView>(R.id.score)
-        if (scorev != null) {
-            scorev.text= score.toString()
+            for (i in 0 until 4) {
+                var temp = makeArray(GridArray, 3, i)
+                var temptemp=doAction(temp)
+                for(j in 0 until 4){
+                    GridArray[j+4*i]=temptemp[3-j]
+                }
+            }
+            // add 2 or 4 in blank
+            var index = newValue(GridArray)
+            if (index.size == 0) Toast.makeText(this.context, "GameOver", Toast.LENGTH_SHORT).show()
+            else {
+                val num = index[0]
+                GridArray.set(num, index[1])
+                // gridView에 추가
+                var customListView: GridView? = null
+                customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+                val GridAdapter = GridListAdapter(this.activity, GridArray)
+                customListView!!.adapter = GridAdapter
+            }
         }
 
         var customListView: GridView? = null
         customListView = rootView.findViewById<View>(android.R.id.list) as GridView
         val GridAdapter = GridListAdapter(this.activity, GridArray)
-        customListView.adapter = GridAdapter
+        customListView!!.adapter = GridAdapter
 
         return rootView
     }
+
     fun doAction(atomicArray: ArrayList<Int>):ArrayList<Int>{
         var v = -1  // 합쳐진다면 합쳐질 index
         var c = 0   // 움직여서 들어 갈 index
@@ -147,10 +224,33 @@ class Fragment03 : Fragment() {
 
     // doAction 을 수행할 4칸짜리 array 를 만듦
     // mainArray(전체 Grid) 에서 Action 이 무엇이고, 몇 번째 줄을 만들어야 하는지 받아서 만듦.
-    // WhichAct = (0: 위, 1: 아래, 2: 오른쪽, 3: 왼쪽)
-    fun makeArray(mainArray: ArrayList<Int>, WhichAct: Int, index: Int){
-
+    // WhichAct = (0: 위, 1: 아래, 2: 왼쪽, 3: 오른쪽)
+    fun makeArray(mainArray: ArrayList<Int>, WhichAct: Int, index: Int): ArrayList<Int> {
+        var temp: ArrayList<Int> = arrayListOf<Int>()
+        if (WhichAct < 2) { // 위, 아래
+            for (i in 0 until 4) {
+                if (WhichAct == 0) temp.add(i, mainArray[index + 4 * i])
+                else temp.add(i, mainArray[index + 4 * (3 - i)])
+            }
+        } else { // 왼쪽, 오른쪽
+            for (i in 0 until 4) {
+                if (WhichAct == 2) temp.add(i, mainArray[index * 4 + i])
+                else temp.add(i, mainArray[index * 4 + (3 - i)])
+            }
+        }
+        return temp
     }
 
-
+    // make new value appear in blank
+    fun newValue(mainArray: ArrayList<Int>): ArrayList<Int> {
+        var temp: ArrayList<Int> = arrayListOf<Int>()
+        for (i:Int in 0..15) {
+            if (GridArray[i] == 0) temp.add(i)
+        }
+        if (temp.size == 0) return temp
+        val num = Random().nextInt(temp.size)
+        val twoOrfour = Random().nextInt(2)
+        if (twoOrfour == 0) return arrayListOf(temp[num], 2)
+        else return arrayListOf(temp[num], 4)
+    }
 }
