@@ -60,11 +60,7 @@ class Fragment03 : Fragment() {
                 GridArray[i] = 0
             }
             init()
-            // gridView에 추가
-            var customListView: GridView? = null
-            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-            val GridAdapter = GridListAdapter(this.activity, GridArray)
-            customListView!!.adapter = GridAdapter
+            updateGridArray(rootView)
 
             // reset 버튼을 누루면 bestscore 업데이트 (초기: 0)
             if (bestscore < score) bestscore= score
@@ -79,175 +75,30 @@ class Fragment03 : Fragment() {
 
         val up = rootView.findViewById<Button>(R.id.up)
         up.setOnClickListener {
-            Log.d("AfterGridArray",GridArray.toString())
-            for (i in 0 until 4) {
-                var temp = makeArray(GridArray, 0, i)
-                var temptemp=doAction(temp)
-                for(j in 0 until 4){
-                    GridArray[i+4*j]=temptemp[j]
-                }
-                val scorev = rootView?.findViewById<TextView>(R.id.score)
-                if (scorev != null) {
-                    scorev.text = score.toString()
-                }
-            }
-            Log.d("GridArray",GridArray.toString())
-
-
-            if(movechk==0){
-                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                movechk=0
-                // add 2 or 4 in blank
-                var index = newValue(GridArray)
-
-                if (index.size != 0) {
-                    val num = Random().nextInt(index.size)
-                    val twoOrfour = Random().nextInt(2)
-                    if (twoOrfour == 0) GridArray.set(index[num], 2)
-                    else GridArray.set(index[num], 4)
-
-                    if(index.size==1){
-                        gameOverChk(rootView)
-                    }
-                }
-
-            }
-            // gridView에 추가
-            var customListView: GridView? = null
-            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-            val GridAdapter = GridListAdapter(this.activity, GridArray)
-            customListView!!.adapter = GridAdapter
+            moveAction(rootView,0)
+            AfterAction(rootView)
+            updateGridArray(rootView)
         }
         val bottom = rootView.findViewById<Button>(R.id.bottom)
         bottom.setOnClickListener {
-            Log.d("AfterGridArray",GridArray.toString())
-            for (i in 0 until 4) {
-                var temp = makeArray(GridArray, 1, i)
-                //Log.d("log",temp.toString())
-                var temptemp=doAction(temp)
-                for(j in 0 until 4){
-                    GridArray[i+4*j]=temptemp[3-j]
-                }
-                //Log.d("log",temptemp.toString())
-                val scorev = rootView?.findViewById<TextView>(R.id.score)
-                if (scorev != null) {
-                    scorev.text = score.toString()
-                }
-            }
-            Log.d("GridArray",GridArray.toString())
-
-            if(movechk==0){
-                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                movechk=0
-                // add 2 or 4 in blank
-                var index = newValue(GridArray)
-
-                if (index.size != 0) {
-                    val num = Random().nextInt(index.size)
-                    val twoOrfour = Random().nextInt(2)
-                    if (twoOrfour == 0) GridArray.set(index[num], 2)
-                    else GridArray.set(index[num], 4)
-
-                    if(index.size==1){
-                        gameOverChk(rootView)
-                    }
-                }
-            }
-            // gridView에 추가
-            var customListView: GridView? = null
-            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-            val GridAdapter = GridListAdapter(this.activity, GridArray)
-            customListView!!.adapter = GridAdapter
+            moveAction(rootView,1)
+            AfterAction(rootView)
+            updateGridArray(rootView)
         }
         val left = rootView.findViewById<Button>(R.id.left)
         left.setOnClickListener {
-            Log.d("AfterGridArray",GridArray.toString())
-            for (i in 0 until 4) {
-                var temp = makeArray(GridArray, 2, i)
-                var temptemp=doAction(temp)
-                for(j in 0 until 4){
-                    GridArray[j+4*i]=temptemp[j]
-                }
-                val scorev = rootView?.findViewById<TextView>(R.id.score)
-                if (scorev != null) {
-                    scorev.text = score.toString()
-                }
-            }
-            Log.d("GridArray",GridArray.toString())
-            if(movechk==0){
-                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                movechk=0
-                // add 2 or 4 in blank
-                var index = newValue(GridArray)
-
-                if (index.size != 0) {
-                    val num = Random().nextInt(index.size)
-                    val twoOrfour = Random().nextInt(2)
-                    if (twoOrfour == 0) GridArray.set(index[num], 2)
-                    else GridArray.set(index[num], 4)
-
-                    if(index.size==1){
-                        gameOverChk(rootView)
-                    }
-                }
-            }
-            // gridView에 추가
-            var customListView: GridView? = null
-            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-            val GridAdapter = GridListAdapter(this.activity, GridArray)
-            customListView!!.adapter = GridAdapter
+            moveAction(rootView,2)
+            AfterAction(rootView)
+            updateGridArray(rootView)
         }
         val right = rootView.findViewById<Button>(R.id.right)
         right.setOnClickListener {
-            Log.d("AfterGridArray",GridArray.toString())
-            for (i in 0 until 4) {
-                var temp = makeArray(GridArray, 3, i)
-                var temptemp=doAction(temp)
-                for(j in 0 until 4){
-                    GridArray[j+4*i]=temptemp[3-j]
-                }
-                val scorev = rootView?.findViewById<TextView>(R.id.score)
-                if (scorev != null) {
-                    scorev.text = score.toString()
-                }
-            }
-            Log.d("GridArray",GridArray.toString())
-            if(movechk==0){
-                Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
-            }
-            else{
-                movechk=0
-                // add 2 or 4 in blank
-                var index = newValue(GridArray)
-
-                if (index.size != 0) {
-                    val num = Random().nextInt(index.size)
-                    val twoOrfour = Random().nextInt(2)
-                    if (twoOrfour == 0) GridArray.set(index[num], 2)
-                    else GridArray.set(index[num], 4)
-
-                    if(index.size==1){
-                        gameOverChk(rootView)
-                    }
-                }
-            }
-            // gridView에 추가
-            var customListView: GridView? = null
-            customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-            val GridAdapter = GridListAdapter(this.activity, GridArray)
-            customListView!!.adapter = GridAdapter
+            moveAction(rootView,3)
+            AfterAction(rootView)
+            updateGridArray(rootView)
         }
 
-        var customListView: GridView? = null
-        customListView = rootView.findViewById<View>(android.R.id.list) as GridView
-        val GridAdapter = GridListAdapter(this.activity, GridArray)
-        customListView!!.adapter = GridAdapter
+        updateGridArray(rootView)
 
         return rootView
     }
@@ -255,10 +106,10 @@ class Fragment03 : Fragment() {
     fun doAction(atomicArray: ArrayList<Int>):ArrayList<Int>{
         var v = -1  // 합쳐진다면 합쳐질 index
         var c = 0   // 움직여서 들어 갈 index
+
+        // 가장 처음 빈 칸이 아닌 칸을 찾음
         for(i:Int in 0..3){
-            if(atomicArray[i]==0){
-                continue
-            }
+            if(atomicArray[i]==0){continue}
             else{
                 v=i
                 break
@@ -275,14 +126,7 @@ class Fragment03 : Fragment() {
             movechk=1
             return atomicArray
         }
-
         for(i:Int in (v+1)..3){
-            Log.d("i",i.toString())
-            Log.d("v",v.toString())
-            Log.d("c",c.toString())
-            Log.d("forA",atomicArray.toString())
-
-
             // 현재 보는 칸이 비어 있음
             if(atomicArray[i]==0){
                 // 0400 같이 빈칸만 계속 존재할 경우
@@ -299,7 +143,6 @@ class Fragment03 : Fragment() {
                 continue
             }
 
-
             // v,i index 가 같은데  다 마지막이면 그 값 변경해주고, 아니면 그냥 continue
             if(v==i){
                 if(i==3){
@@ -309,7 +152,6 @@ class Fragment03 : Fragment() {
                         movechk=1
                     }
                 }
-                Log.d("atomicA",atomicArray.toString())
                 continue
             }
 
@@ -322,7 +164,6 @@ class Fragment03 : Fragment() {
                 v = i+1
                 c += 1
                 movechk=1
-                Log.d("atomicA",atomicArray.toString())
             }
 
             // 다르므로 앞에 것은 c index
@@ -333,7 +174,6 @@ class Fragment03 : Fragment() {
                 }
                 c += 1
                 v = i
-                Log.d("atomicA",atomicArray.toString())
             }
 
             // i=3 인 개체는 합쳐질리 없으므로 그대로 값 이동.
@@ -343,11 +183,9 @@ class Fragment03 : Fragment() {
                     atomicArray.set(3,0)
                     movechk=1
                 }
-                Log.d("atomicA",atomicArray.toString())
             }
 
         }
-        Log.d("score",score.toString())
         return atomicArray
     }
 
@@ -406,6 +244,60 @@ class Fragment03 : Fragment() {
             val reset = rootView.findViewById<Button>(R.id.reset)
             reset.setBackgroundColor(Color.parseColor("#FF018786"))
             reset.setTextColor(Color.parseColor("#FFFFFF"))
+            // gameover되면 bestscore 업데이트
+            if (bestscore < score) bestscore= score
+            val bestscorev = rootView?.findViewById<TextView>(R.id.bestscore)
+            bestscorev!!.text = bestscore.toString()
         }
     }
+
+    fun moveAction(rootView: View,movetype: Int){
+        for (i in 0 until 4) {
+            var temp = makeArray(GridArray, movetype, i)
+            var temptemp=doAction(temp)
+            for(j in 0 until 4){
+                when (movetype) {
+                    0 -> GridArray[i+4*j] = temptemp[j]
+                    1 -> GridArray[i+4*j] = temptemp[3-j]
+                    2 -> GridArray[j+4*i] = temptemp[j]
+                    3 -> GridArray[j+4*i] = temptemp[3-j]
+                }
+            }
+            val scorev = rootView?.findViewById<TextView>(R.id.score)
+            if (scorev != null) {
+                scorev.text = score.toString()
+            }
+        }
+    }
+
+    fun AfterAction(rootView: View){
+        if(movechk==0){
+            //Toast.makeText(this.context, "Can't move", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            movechk=0
+            // add 2 or 4 in blank
+            var index = newValue(GridArray)
+
+            if (index.size != 0) {
+                val num = Random().nextInt(index.size)
+                val twoOrfour = Random().nextInt(2)
+                if (twoOrfour == 0) GridArray.set(index[num], 2)
+                else GridArray.set(index[num], 4)
+
+                if(index.size==1){
+                    gameOverChk(rootView)
+                }
+            }
+        }
+    }
+
+    fun updateGridArray(rootView: View){
+        // gridView에 추가
+        var customListView: GridView? = null
+        customListView = rootView.findViewById<View>(android.R.id.list) as GridView
+        val GridAdapter = GridListAdapter(this.activity, GridArray)
+        customListView!!.adapter = GridAdapter
+    }
+
 }
