@@ -11,7 +11,7 @@
   + KAIST 전산학부 이가현
 
 #### 개발환경
-  + OS: Android
+  + OS: Android (minSdk: 21, targetSdk: 32)
   + Language: Kotlin
   + IDE: Android Studio
   + Target Device: Galaxy S7
